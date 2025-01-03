@@ -1,16 +1,39 @@
-# todo_challenge_2
+# Desafio de código Mobile
 
-A new Flutter project.
+#### Nesse desafio serão avaliados
+* Seu domínio em Flutter
+* Fluxo de navegação
+* Forma de organizar o código
 
-## Getting Started
+Boa sorte e obrigado por participar!
 
-This project is a starting point for a Flutter application.
+## 🚨 As regras do jogo
 
-A few resources to get you started if this is your first Flutter project:
+1. Seu projeto deverá ser construído utilizando Flutter;
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. O aplicativo de deverá ser offline first;
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. Seu projeto deverá ser construído utilizando o layout disponibilizado na descrição do teste;
+
+5. Crie um arquivo README explicando como executar o projeto.
+
+## 🎁 Bônus
+
+Esses itens não são obrigatórios, porém desejados.
+
+* Clean Code
+* Arquitetura MVVM
+* Testes automatizados
+
+## 🖥 O Desafio
+
+Você deverá construir um projeto utilizando o layout proposto:
+
+* Listagem de tarefas com scroll infinito;
+* Listagem de tarefas finalizadas; 
+* Criar tarefa; 
+* Os dados deverão ser salvo local utilizando um banco de dados (sqlite, Hive, etc...);
+
+### Layout: 
+
+O layout está disponível no link: [Protótipo](https://www.figma.com/proto/RPnpIHgvIKobI7LieqNCcw/Taski-To-Do?node-id=12-387&p=f&t=l4R38GZ4q3qrv2XW-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1)
