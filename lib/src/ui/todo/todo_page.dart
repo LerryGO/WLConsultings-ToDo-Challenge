@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_challenge_2/src/domain/models/task_model.dart';
+import 'package:todo_challenge_2/src/ui/task/component/task_list.dart';
 import 'package:todo_challenge_2/src/ui/todo/components/app_header.dart';
 import 'package:todo_challenge_2/src/ui/todo/components/custom_bottom_navigation_bar.dart';
 
@@ -34,21 +35,6 @@ class _TodoPageState extends State<TodoPage> {
   final PageController _pageController = PageController();
   int _selectedIndex = 0;
 
-  Widget taskItem(TaskModel task) {
-    return Center(
-      child: Text(task.title),
-    );
-  }
-
-  Widget _buildTodoList() {
-    return ListView.builder(
-      itemCount: _todoList.length,
-      itemBuilder: (context, index) {
-        return taskItem(_todoList[index]);
-      },
-    );
-  }
-
   void _onItemTapped(int index) {
     _selectedIndex = index;
     _pageController.animateToPage(
@@ -67,7 +53,7 @@ class _TodoPageState extends State<TodoPage> {
       body: PageView(
         controller: _pageController,
         children: [
-          _buildTodoList(),
+          TaskList(todoList: _todoList),
           Center(
             child: Text('Create Page'),
           ),

@@ -19,7 +19,7 @@ class AppHeader extends StatelessWidget {
                 width: 32,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.blue,
+                  color: Color(0xff007fff),
                 ),
                 child: Icon(
                   Icons.check,
