@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import '../../../domain/models/task_model.dart';
 import 'task_item_card.dart';
 
@@ -18,7 +17,10 @@ class TaskList extends StatelessWidget {
         final description = _todoList[index].description;
         final isCompleted = _todoList[index].isCompleted;
         return TaskItemCard(
-            title: title, description: description, isCompleted: isCompleted);
+          title: title,
+          description: description,
+          isCompleted: isCompleted,
+        );
       },
     );
   }

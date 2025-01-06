@@ -92,7 +92,10 @@ class _TaskItemCardState extends State<TaskItemCard> {
                                 horizontal: 16.0, vertical: 8.0),
                             child: Text(
                               widget.description,
-                              style: TextStyle(fontSize: 14),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey[600],
+                              ),
                             ),
                           ),
                         ),
