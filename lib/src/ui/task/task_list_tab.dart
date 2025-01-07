@@ -42,9 +42,50 @@ class _TaskListTabState extends State<TaskListTab> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: 16,
         children: [
-          WelcomeHeader(name: "John", message: "You've got 3 tasks to do "),
+          WelcomeHeader(
+              name: "John",
+              message: _todoList.isNotEmpty
+                  ? "You've got 3 tasks to do "
+                  : "Create tasks to achieve more"),
           Expanded(
-            child: TaskList(todoList: _todoList),
+            child: Visibility(
+              visible: _todoList.isNotEmpty,
+              replacement: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 16,
+                  children: [
+                    Image.asset(
+                      "assets/files.png",
+                      width: 120,
+                      height: 120,
+                    ),
+                    Text(
+                      "Create your first task",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        backgroundColor: Color(0xffe6f3ff),
+                        foregroundColor: Color(0xff007fff),
+                        iconColor: Color(0xff007fff),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      label: Text("Create Task"),
+                      icon: Icon(Icons.add),
+                    ),
+                  ],
+                ),
+              ),
+              child: TaskList(todoList: _todoList),
+            ),
           )
         ],
       ),
