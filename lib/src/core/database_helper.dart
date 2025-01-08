@@ -12,6 +12,11 @@ class DatabaseHelper {
   static const String columnTitle = 'title';
   static const String columnIsCompleted = 'is_completed';
 
+  static const String userTable = "users";
+  static const String columnUserId = "id";
+  static const String columnUserName = "name";
+  static const String columnUserEmail = "email";
+
   Future<Database?> initializeDatabase() async {
     final String path = join(await getDatabasesPath(), _databaseName);
     return openDatabase(
@@ -28,6 +33,14 @@ class DatabaseHelper {
         $columnCloudId INTEGER,
         $columnTitle TEXT NOT NULL,
         $columnIsCompleted INTEGER NOT NULL
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE $userTable (
+        $columnUserId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $columnUserName TEXT NOT NULL,
+        $columnUserEmail TEXT NOT NULL
       )
     ''');
   }
