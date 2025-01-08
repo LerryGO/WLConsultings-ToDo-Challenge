@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_challenge_2/src/ui/task/component/create_task.dart';
 import 'package:todo_challenge_2/src/ui/task/task_list_tab.dart';
+import 'package:todo_challenge_2/src/ui/task/view_models/task_viewmodel.dart';
 import 'package:todo_challenge_2/src/ui/todo/components/app_header.dart';
 
 class TodoPage extends StatefulWidget {
@@ -13,6 +15,11 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   final PageController _pageController = PageController();
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _openModal() {
     final size = MediaQuery.sizeOf(context);
@@ -55,7 +62,9 @@ class _TodoPageState extends State<TodoPage> {
           PageView(
             controller: _pageController,
             children: [
-              TaskListTab(),
+              TaskListTab(
+                taskViewmodel: context.read<TaskViewmodel>(),
+              ),
               Center(child: Text('Search Page')),
               Center(child: Text('Done Page')),
             ],

@@ -1,13 +1,14 @@
 import 'package:sqflite/sqflite.dart';
+import 'package:todo_challenge_2/src/core/result.dart';
 
 import '../../core/exceptions/database_exception.dart';
 import '../../domain/models/task_model.dart';
 
 abstract class TaskLocalDataSource {
-  Future<List<TaskModel>> getTasks();
-  Future<void> addTask(TaskModel task);
-  Future<void> updateTask(TaskModel task);
-  Future<void> deleteTask(int id);
+  Future<Result<LocalDatabaseException, List<TaskModel>>> getTasks();
+  Future<Result<LocalDatabaseException, int>> addTask(TaskModel task);
+  Future<Result<LocalDatabaseException, int>> updateTask(TaskModel task);
+  Future<Result<LocalDatabaseException, void>> deleteTask(int id);
 }
 
 class TaskLocalDataSourceImpl implements TaskLocalDataSource {
@@ -16,48 +17,48 @@ class TaskLocalDataSourceImpl implements TaskLocalDataSource {
   TaskLocalDataSourceImpl(this.database);
 
   @override
-  Future<List<TaskModel>> getTasks() async {
+  Future<Result<LocalDatabaseException, List<TaskModel>>> getTasks() async {
     try {
       final List<Map<String, dynamic>> maps = await database.query('tasks');
-      return maps.map((map) => TaskModel.fromMap(map)).toList();
+      return Success(maps.map((map) => TaskModel.fromMap(map)).toList());
     } catch (e) {
-      throw LocalDatabaseException('Error fetching tasks');
+      return Failure(LocalDatabaseException('Error fetching tasks'));
     }
   }
 
   @override
-  Future<void> addTask(TaskModel task) async {
+  Future<Result<LocalDatabaseException, int>> addTask(TaskModel task) async {
     try {
-      await database.insert('tasks', task.toMap());
+      return Success(await database.insert('tasks', task.toMap()));
     } catch (e) {
-      throw LocalDatabaseException('Error adding task');
+      return Failure(LocalDatabaseException('Error adding task'));
     }
   }
 
   @override
-  Future<void> updateTask(TaskModel task) async {
+  Future<Result<LocalDatabaseException, int>> updateTask(TaskModel task) async {
     try {
-      await database.update(
+      return Success(await database.update(
         'tasks',
         task.toMap(),
         where: 'id = ?',
         whereArgs: [task.id],
-      );
+      ));
     } catch (e) {
-      throw LocalDatabaseException('Error updating task');
+      return Failure(LocalDatabaseException('Error updating task'));
     }
   }
 
   @override
-  Future<void> deleteTask(int id) async {
+  Future<Result<LocalDatabaseException, int>> deleteTask(int id) async {
     try {
-      await database.delete(
+      return Success(await database.delete(
         'tasks',
         where: 'id = ?',
         whereArgs: [id],
-      );
+      ));
     } catch (e) {
-      throw LocalDatabaseException('Error deleting task');
+      return Failure(LocalDatabaseException('Error deleting task'));
     }
   }
 }

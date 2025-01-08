@@ -17,6 +17,14 @@ class DatabaseHelper {
   static const String columnUserName = "name";
   static const String columnUserEmail = "email";
 
+  Database? _database;
+
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await initializeDatabase();
+    return _database!;
+  }
+
   Future<Database?> initializeDatabase() async {
     final String path = join(await getDatabasesPath(), _databaseName);
     return openDatabase(
