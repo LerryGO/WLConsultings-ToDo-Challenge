@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_challenge_2/src/ui/task/component/create_task.dart';
 import 'package:todo_challenge_2/src/ui/task/task_list_tab.dart';
 import 'package:todo_challenge_2/src/ui/todo/components/app_header.dart';
 
@@ -16,8 +17,9 @@ class _TodoPageState extends State<TodoPage> {
   void _openModal() {
     final size = MediaQuery.sizeOf(context);
     showModalBottomSheet(
+      isScrollControlled: true,
       constraints: BoxConstraints(
-          maxHeight: size.height * 0.5, minHeight: size.height * 0.2),
+          maxHeight: size.height * 0.7, minHeight: size.height * 0.2),
       barrierColor: Colors.transparent,
       elevation: 0,
       context: context,
@@ -27,33 +29,7 @@ class _TodoPageState extends State<TodoPage> {
           topRight: Radius.circular(16),
         ),
       ),
-      builder: (context) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
-          ),
-          color: Theme.of(context).scaffoldBackgroundColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 10,
-              spreadRadius: 5,
-              offset: Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text("Criar task"),
-            ],
-          ),
-        ),
-      ),
+      builder: (context) => CreateTask(),
     );
   }
 
