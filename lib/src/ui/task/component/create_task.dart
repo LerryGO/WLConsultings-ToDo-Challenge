@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:todo_challenge_2/src/domain/models/task_model.dart';
+
+import '../view_models/task_viewmodel.dart';
 
 class CreateTask extends StatefulWidget {
-  const CreateTask({super.key});
+  final TaskViewmodel _taskViewmodel;
+  const CreateTask({
+    super.key,
+    required TaskViewmodel taskViewmodel,
+  }) : _taskViewmodel = taskViewmodel;
 
   @override
   State<CreateTask> createState() => _CreateTaskState();
@@ -11,7 +18,7 @@ class _CreateTaskState extends State<CreateTask> {
   final TextEditingController _taskTitleController = TextEditingController();
   final TextEditingController _taskNoteController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
+  var isChecked = false;
   @override
   void dispose() {
     super.dispose();
@@ -21,7 +28,6 @@ class _CreateTaskState extends State<CreateTask> {
 
   @override
   Widget build(BuildContext context) {
-    var isChecked = false;
     return Container(
       padding: EdgeInsets.all(16)
           .copyWith(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -65,6 +71,7 @@ class _CreateTaskState extends State<CreateTask> {
                   Expanded(
                     child: TextFormField(
                       controller: _taskTitleController,
+                      validator: (value) => value!.isEmpty ? 'Required' : null,
                       decoration: InputDecoration(
                         hintText: "What's in your mind?",
                         hintStyle: TextStyle(
@@ -78,9 +85,9 @@ class _CreateTaskState extends State<CreateTask> {
               ),
               Row(
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {},
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.edit),
                   ),
                   Expanded(
                     child: TextFormField(
@@ -100,7 +107,19 @@ class _CreateTaskState extends State<CreateTask> {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      final task = TaskModel(
+                        title: _taskTitleController.text,
+                        description: _taskNoteController.text,
+                        isCompleted: isChecked,
+                      );
+                      await widget._taskViewmodel.addTask(task);
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                      }
+                    }
+                  },
                   style: TextButton.styleFrom(foregroundColor: Colors.blue),
                   child: Text(
                     'Create',

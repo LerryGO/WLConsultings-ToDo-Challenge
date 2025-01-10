@@ -1,23 +1,24 @@
 import 'dart:convert';
 
+import 'package:todo_challenge_2/src/core/database_helper.dart';
+
 class TaskModel {
-  final int id;
+  final int? id;
   final String title;
   final String description;
   final bool isCompleted;
 
-    TaskModel({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.isCompleted
-  });
+  TaskModel(
+      {this.id,
+      required this.title,
+      required this.description,
+      required this.isCompleted});
 
-
-@override
+  @override
   String toString() {
     return 'TaskModel(id: $id, title: $title, description: $description, isCompleted: $isCompleted)';
   }
+
   TaskModel copyWith({
     int? id,
     String? title,
@@ -34,42 +35,42 @@ class TaskModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'title': title,
-      'description': description,
-      'isCompleted': isCompleted,
+      DatabaseHelper.columnId: id,
+      DatabaseHelper.columnTitle: title,
+      DatabaseHelper.columnDescription: description,
+      DatabaseHelper.columnIsCompleted: isCompleted ? 1 : 0,
     };
   }
 
   factory TaskModel.fromMap(Map<String, dynamic> map) {
     return TaskModel(
-      id: map['id'] as int,
-      title: map['title'] as String,
-      description: map['description'] as String,
-      isCompleted: map['isCompleted'] as bool,
+      id: map[DatabaseHelper.columnId] as int,
+      title: map[DatabaseHelper.columnTitle] as String,
+      description: map[DatabaseHelper.columnDescription] as String,
+      isCompleted: map[DatabaseHelper.columnIsCompleted] == 1 ? true : false,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory TaskModel.fromJson(String source) => TaskModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory TaskModel.fromJson(String source) =>
+      TaskModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   bool operator ==(covariant TaskModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.title == title &&
-      other.description == description &&
-      other.isCompleted == isCompleted;
+
+    return other.id == id &&
+        other.title == title &&
+        other.description == description &&
+        other.isCompleted == isCompleted;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      title.hashCode ^
-      description.hashCode ^
-      isCompleted.hashCode;
+        title.hashCode ^
+        description.hashCode ^
+        isCompleted.hashCode;
   }
 }

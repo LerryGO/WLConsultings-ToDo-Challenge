@@ -36,7 +36,9 @@ class _TodoPageState extends State<TodoPage> {
           topRight: Radius.circular(16),
         ),
       ),
-      builder: (context) => CreateTask(),
+      builder: (contextas) => CreateTask(
+        taskViewmodel: context.read<TaskViewmodel>(),
+      ),
     );
   }
 

@@ -51,7 +51,10 @@ class TaskViewmodel extends ChangeNotifier {
   }
 
   Future<Result<Exception, TaskModel>> deleteTask(TaskModel task) async {
-    final result = await _taskLocalDataSource.deleteTask(task.id);
+    if (task.id == null) {
+      return Failure(Exception("Task id is null"));
+    }
+    final result = await _taskLocalDataSource.deleteTask(task.id!);
     return result.when(
       success: (_) {
         _tasks.removeWhere((element) => element.id == task.id);

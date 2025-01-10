@@ -10,6 +10,7 @@ class DatabaseHelper {
   static const String columnId = 'id';
   static const String columnCloudId = 'cloud_id';
   static const String columnTitle = 'title';
+  static const String columnDescription = 'description';
   static const String columnIsCompleted = 'is_completed';
 
   static const String userTable = "users";
@@ -40,6 +41,7 @@ class DatabaseHelper {
         $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
         $columnCloudId INTEGER,
         $columnTitle TEXT NOT NULL,
+        $columnDescription TEXT NOT NULL,
         $columnIsCompleted INTEGER NOT NULL
       )
     ''');
